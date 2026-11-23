@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Friendly remote computer and phone help across Canada. Flat prices, no fix no fee.">
+<title>Patient Tech Help</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap">
+<style>
+/* Layout: one calm column with a split hero (promise + the screen-share "Allow" card people will actually see), then services, steps, prices, safety, contact. Big, legible type for older eyes. */
+:root {
+  --bg: #f6f8f7;
+  --surface: #ffffff;
+  --ink: #12302d;
+  --muted: #4a6360;
+  --line: #d5e0dd;
+  --accent: #0f6b5f;
+  --accent-ink: #ffffff;
+  --note: #ffe58a;
+  --note-ink: #3a2f00;
+  --good: #1e7a3c;
+  --warn: #9a3b12;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --radius: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1715; --surface: #15211f; --ink: #e5efec; --muted: #a3b8b4; --line: #2a3b38;
+    --accent: #4fc3ae; --accent-ink: #062320; --note: #e8c95a; --note-ink: #2a2200;
+    --good: #6fd08f; --warn: #f0a07a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1715; --surface: #15211f; --ink: #e5efec; --muted: #a3b8b4; --line: #2a3b38;
+  --accent: #4fc3ae; --accent-ink: #062320; --note: #e8c95a; --note-ink: #2a2200;
+  --good: #6fd08f; --warn: #f0a07a; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 18px; line-height: 1.6;
+}
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); font-weight: 800; letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.6rem, 3.2vw, 2.2rem); font-weight: 800; }
+h3 { font-size: 1.2rem; font-weight: 600; }
+p { margin: 0; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+.eyebrow { font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+
+/* top bar */
+.top { padding-block: 18px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.brand { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+.brand-mark { width: 34px; height: 34px; border-radius: 9px; background: var(--accent); display: grid; place-items: center; color: var(--accent-ink); font-size: 1.1rem; }
+.top-phone { font-weight: 700; color: var(--ink); }
+.top-phone span { color: var(--muted); font-weight: 400; }
+
+/* hero */
+.hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center; padding-block: 40px 64px; }
+.hero > * { min-width: 0; }
+.hero p.lede { font-size: 1.2rem; color: var(--muted); margin-top: 18px; max-width: 34ch; }
+.cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 28px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 14px 22px; border-radius: 12px;
+  font: 700 1.05rem var(--font-body); text-decoration: none; border: 2px solid var(--accent); cursor: pointer;
+}
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-ghost { background: transparent; color: var(--accent); }
+.promises { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 28px; padding: 0; list-style: none; color: var(--ink); font-weight: 700; font-size: 1rem; }
+.promises li::before { content: "✓"; color: var(--good); margin-right: 8px; }
+
+/* the consent card: what customers see when the session starts */
+.consent {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px;
+  box-shadow: 0 18px 40px -24px rgba(18, 48, 45, 0.45); position: relative;
+}
+.consent-bar { display: flex; gap: 6px; margin-bottom: 18px; }
+.consent-bar i { width: 11px; height: 11px; border-radius: 50%; background: var(--line); display: block; }
+.consent h3 { font-size: 1.15rem; }
+.consent .who { color: var(--muted); margin-top: 6px; font-size: 1rem; }
+.code { font-family: var(--font-display); font-weight: 800; font-size: 2rem; letter-spacing: 0.12em; margin: 16px 0 4px; font-variant-numeric: tabular-nums; }
+.code-label { font-size: 0.9rem; color: var(--muted); }
+.consent-actions { display: flex; gap: 10px; margin-top: 18px; }
+.consent-actions span { flex: 1; text-align: center; padding: 11px; border-radius: 10px; font-weight: 700; border: 2px solid var(--line); }
+.consent-actions .allow { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.sticky {
+  position: absolute; right: -14px; bottom: -26px; transform: rotate(3deg);
+  background: var(--note); color: var(--note-ink); padding: 12px 16px; border-radius: 6px; max-width: 200px;
+  font-size: 0.95rem; font-weight: 700; box-shadow: 0 8px 18px -10px rgba(0, 0, 0, 0.4);
+}
+
+/* sections */
+section { padding-block: 56px; border-top: 1px solid var(--line); }
+.section-head { display: grid; gap: 10px; margin-bottom: 30px; max-width: 60ch; }
+.section-head p { color: var(--muted); }
+.services { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.service { padding: 18px 0; border-top: 3px solid var(--accent); min-width: 0; }
+.service p { color: var(--muted); font-size: 1rem; margin-top: 6px; }
+
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; counter-reset: step; list-style: none; padding: 0; margin: 0; }
+.steps li { counter-increment: step; min-width: 0; }
+.steps li::before {
+  content: counter(step); display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%;
+  background: var(--note); color: var(--note-ink); font: 800 1.2rem var(--font-display); margin-bottom: 12px;
+}
+.steps p { color: var(--muted); font-size: 1rem; margin-top: 6px; }
+
+.prices { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.price { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.price.feature { border: 2px solid var(--accent); }
+.amount { font-family: var(--font-display); font-weight: 800; font-size: 2.2rem; font-variant-numeric: tabular-nums; }
+.amount small { font-size: 1rem; font-weight: 600; color: var(--muted); }
+.price p { color: var(--muted); font-size: 1rem; }
+.tag { align-self: flex-start; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: var(--accent); color: var(--accent-ink); padding: 3px 9px; border-radius: 999px; }
+.fineprint { margin-top: 18px; color: var(--muted); font-size: 0.98rem; }
+
+.safety { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.safety > * { min-width: 0; }
+.checklist { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.checklist li { padding-left: 34px; position: relative; }
+.checklist li::before { position: absolute; left: 0; top: 0; font-weight: 800; }
+.checklist.do li::before { content: "✓"; color: var(--good); }
+.checklist.dont li::before { content: "✕"; color: var(--warn); }
+
+.faq { display: grid; gap: 10px; max-width: 760px; }
+details { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; }
+summary { cursor: pointer; font-weight: 700; }
+details p { margin-top: 10px; color: var(--muted); }
+
+.contact { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.contact-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; min-width: 0; }
+.contact-card .value { font-family: var(--font-display); font-weight: 800; font-size: 1.35rem; margin: 6px 0 12px; overflow-wrap: anywhere; user-select: all; }
+.copy { font: 700 0.95rem var(--font-body); background: transparent; color: var(--accent); border: 2px solid var(--accent); padding: 8px 14px; border-radius: 10px; cursor: pointer; }
+.hours { margin-top: 20px; color: var(--muted); }
+
+footer { padding-block: 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.95rem; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; gap: 56px; }
+  .services, .steps, .prices { grid-template-columns: repeat(2, 1fr); }
+  .contact { grid-template-columns: 1fr; }
+  .sticky { right: 10px; }
+}
+@media (max-width: 560px) {
+  .services, .steps, .prices, .safety { grid-template-columns: 1fr; }
+  .top-phone span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">✓</span>Patient Tech Help</a>
+    <div class="top-phone">(000) 000-0000 <span>· Mon–Sat, 9 am–8 pm ET</span></div>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <div>
+        <p class="eyebrow">Computer &amp; phone help, from home</p>
+        <h1 style="margin-top:12px">Stuck with your computer or phone? We fix it over the internet while you watch.</h1>
+        <p class="lede">Friendly, patient help for slow computers, pop-ups, Wi-Fi, printers, email and phones. No driving, no waiting for a technician, no jargon.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://calendly.com/" target="_blank" rel="noopener">Book a session</a>
+          <a class="btn btn-ghost" href="#contact">Call or text us</a>
+        </div>
+        <ul class="promises">
+          <li>No fix, no fee</li>
+          <li>Flat prices in CAD</li>
+          <li>We never call you first</li>
+        </ul>
+      </div>
+
+      <div class="consent" aria-label="Example of the screen-sharing request you'll see">
+        <div class="consent-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <h3>Allow Patient Tech Help to see your screen?</h3>
+        <p class="who">You stay in control. Close this window anytime to end the session.</p>
+        <div class="code">482 913</div>
+        <div class="code-label">Your session code (read it to us on the phone)</div>
+        <div class="consent-actions" aria-hidden="true"><span class="allow">Allow</span><span>Deny</span></div>
+        <div class="sticky">This is the only thing you'll need to click.</div>
+      </div>
+    </div>
+
+    <section id="services">
+      <div class="section-head">
+        <p class="eyebrow">What we fix</p>
+        <h2>Everyday tech problems, sorted</h2>
+        <p>Windows, Mac, iPhone, iPad and Android. If it's not on the list, ask us: the first 5 minutes are free.</p>
+      </div>
+      <div class="services">
+        <div class="service"><h3>Slow or frozen computer</h3><p>Clean-up, startup fixes and updates so it runs like it should.</p></div>
+        <div class="service"><h3>Viruses &amp; pop-ups</h3><p>Remove junk, fake warnings and unwanted programs safely.</p></div>
+        <div class="service"><h3>Wi-Fi &amp; printers</h3><p>Get connected, get printing, and stay that way.</p></div>
+        <div class="service"><h3>Email &amp; passwords</h3><p>Set up email, recover accounts, and keep passwords safe.</p></div>
+        <div class="service"><h3>Phones &amp; tablets</h3><p>Photos, contacts, apps, storage full, and moving to a new phone.</p></div>
+        <div class="service"><h3>New computer setup</h3><p>Move your files, photos and programs from the old one.</p></div>
+        <div class="service"><h3>Video calls with family</h3><p>Zoom, FaceTime and WhatsApp set up and practised together.</p></div>
+        <div class="service"><h3>Scam check</h3><p>Not sure about an email, text or call? We'll tell you if it's real.</p></div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="section-head">
+        <p class="eyebrow">How it works</p>
+        <h2>Help in four simple steps</h2>
+      </div>
+      <ol class="steps">
+        <li><h3>Get in touch</h3><p>Call, text or book a time online. Tell us what's wrong in your own words.</p></li>
+        <li><h3>Open a secure link</h3><p>We send a free screen-sharing link and you click "Allow". Nothing to buy.</p></li>
+        <li><h3>Watch us fix it</h3><p>You see every step on your screen and can stop us anytime.</p></li>
+        <li><h3>Pay when it's fixed</h3><p>Interac e-Transfer or credit card. No fix, no fee.</p></li>
+      </ol>
+    </section>
+
+    <section id="prices">
+      <div class="section-head">
+        <p class="eyebrow">Prices</p>
+        <h2>Flat prices. You know the cost before we start.</h2>
+      </div>
+      <div class="prices">
+        <div class="price"><h3>Quick Fix</h3><div class="amount">$39</div><p>Up to 30 minutes. One problem, like a printer or a pop-up.</p></div>
+        <div class="price feature"><span class="tag">Most popular</span><h3>Full Session</h3><div class="amount">$69</div><p>Up to 1 hour. Several problems or a full clean-up.</p></div>
+        <div class="price"><h3>New Computer Setup</h3><div class="amount">$99</div><p>Move your files, photos, email and programs.</p></div>
+        <div class="price"><h3>Peace of Mind</h3><div class="amount">$25<small>/month</small></div><p>Up to 2 sessions a month, priority booking, cancel anytime.</p></div>
+      </div>
+      <p class="fineprint">Prices in Canadian dollars. Seniors (65+) get 10% off. If we can't fix it, you don't pay.</p>
+    </section>
+
+    <section id="safety">
+      <div class="section-head">
+        <p class="eyebrow">Your safety</p>
+        <h2>How to tell real tech help from a scam</h2>
+        <p>Fake "tech support" calls are common. Here is how we work, so you can always tell us apart.</p>
+      </div>
+      <div class="safety">
+        <div>
+          <h3 style="margin-bottom:14px">What we do</h3>
+          <ul class="checklist do">
+            <li>Only help when you contact us first.</li>
+            <li>Tell you the price before we start.</li>
+            <li>Let you watch everything and stop us anytime.</li>
+            <li>Disconnect when we're done, and show you how to check.</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="margin-bottom:14px">What we never do</h3>
+          <ul class="checklist dont">
+            <li>Call you out of the blue about a "virus".</li>
+            <li>Ask for gift cards, crypto or your bank password.</li>
+            <li>Ask you to log in to your bank while we're connected.</li>
+            <li>Rush you or threaten that your computer will be "locked".</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="section-head">
+        <p class="eyebrow">Questions</p>
+        <h2>Good to know</h2>
+      </div>
+      <div class="faq">
+        <details><summary>Do I need to install anything?</summary><p>Only a free, well-known screen-sharing app that we walk you through on the phone. You can remove it afterwards, and we'll show you how.</p></details>
+        <details><summary>Can you see my files after we're done?</summary><p>No. The connection only works while the window is open and you've clicked "Allow". Once you close it, we can't connect again without a new code from you.</p></details>
+        <details><summary>What if you can't fix it?</summary><p>Then you don't pay. If it's a hardware problem, like a broken screen, we'll tell you honestly and suggest a local repair shop.</p></details>
+        <details><summary>How do I pay?</summary><p>Interac e-Transfer or credit card, after the problem is fixed. We email you a receipt.</p></details>
+        <details><summary>Can you help my parents who live far away?</summary><p>Yes. You can book and pay for them, and we'll call them directly at a time that suits them.</p></details>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-head">
+        <p class="eyebrow">Get help now</p>
+        <h2>Call, text, or book a time</h2>
+      </div>
+      <div class="contact">
+        <div class="contact-card"><p class="eyebrow">Phone or text</p><div class="value" id="phone">(000) 000-0000</div><button class="copy" type="button" data-copy="phone">Copy number</button></div>
+        <div class="contact-card"><p class="eyebrow">Email</p><div class="value" id="email">help@example.com</div><button class="copy" type="button" data-copy="email">Copy email</button></div>
+        <div class="contact-card"><p class="eyebrow">Book online</p><div class="value">Pick a time</div><a class="btn btn-primary" href="https://calendly.com/" target="_blank" rel="noopener">Open the calendar</a></div>
+      </div>
+      <p class="hours">Monday to Saturday, 9 am to 8 pm Eastern. Serving all of Canada.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 Patient Tech Help · Remote computer and phone support across Canada</span>
+    <span>We only connect to your device with your permission.</span>
+  </footer>
+</div>
+
+<script>
+document.querySelectorAll(".copy").forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    var el = document.getElementById(btn.dataset.copy);
+    var text = el.textContent.trim();
+    var label = btn.textContent;
+    function done(msg) { btn.textContent = msg; setTimeout(function () { btn.textContent = label; }, 1800); }
+    function selectIt() {
+      var r = document.createRange(); r.selectNodeContents(el);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      done("Selected, press Ctrl+C");
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () { done("Copied"); }, selectIt);
+    } catch (e) { selectIt(); }
+  });
+});
+</script>
+</body>
+</html>
