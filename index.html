@@ -3,267 +3,256 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Friendly remote computer and phone help across Canada. Flat prices, no fix no fee.">
-<title>Patient Tech Help</title>
+<meta name="description" content="Video-call help for DIY HVAC, plumbing, electrical, appliance and walk-in freezer repairs across Canada.">
+<title>DIY Fix Line</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Barlow+Condensed:wght@600;700;800&display=swap">
 <style>
-/* Layout: one calm column with a split hero (promise + the screen-share "Allow" card people will actually see), then services, steps, prices, safety, contact. Big, legible type for older eyes. */
+/* Layout: work-order feel. Split hero (promise + a live video-call card showing a real diagnosis), then trades, steps, prices, the "stop and call a pro" safety list, FAQ, contact. Safety-orange accent on slate, like tags on a service van. */
 :root {
-  --bg: #f6f8f7;
+  --bg: #f4f5f2;
   --surface: #ffffff;
-  --ink: #12302d;
-  --muted: #4a6360;
-  --line: #d5e0dd;
-  --accent: #0f6b5f;
+  --ink: #1d2428;
+  --muted: #55616a;
+  --line: #d9ddd8;
+  --accent: #d9530f;
   --accent-ink: #ffffff;
-  --note: #ffe58a;
-  --note-ink: #3a2f00;
-  --good: #1e7a3c;
-  --warn: #9a3b12;
-  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --slate: #24323b;
+  --slate-ink: #eef2f3;
+  --good: #1f7a45;
+  --stop: #b3261e;
+  --font-display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
   --font-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
-  --radius: 14px;
+  --radius: 12px;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0e1715; --surface: #15211f; --ink: #e5efec; --muted: #a3b8b4; --line: #2a3b38;
-    --accent: #4fc3ae; --accent-ink: #062320; --note: #e8c95a; --note-ink: #2a2200;
-    --good: #6fd08f; --warn: #f0a07a; color-scheme: dark;
+    --bg: #111618; --surface: #192125; --ink: #e8ecec; --muted: #a6b1b6; --line: #2c373c;
+    --accent: #ff8a4c; --accent-ink: #1d0d03; --slate: #0b1013; --slate-ink: #e8ecec;
+    --good: #6fd29a; --stop: #ff8a80; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0e1715; --surface: #15211f; --ink: #e5efec; --muted: #a3b8b4; --line: #2a3b38;
-  --accent: #4fc3ae; --accent-ink: #062320; --note: #e8c95a; --note-ink: #2a2200;
-  --good: #6fd08f; --warn: #f0a07a; color-scheme: dark;
+  --bg: #111618; --surface: #192125; --ink: #e8ecec; --muted: #a6b1b6; --line: #2c373c;
+  --accent: #ff8a4c; --accent-ink: #1d0d03; --slate: #0b1013; --slate-ink: #e8ecec;
+  --good: #6fd29a; --stop: #ff8a80; color-scheme: dark;
 }
 * { box-sizing: border-box; }
-body {
-  background: var(--bg); color: var(--ink);
-  font-family: var(--font-body); font-size: 18px; line-height: 1.6;
-}
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 18px; line-height: 1.6; }
 .wrap {
-  max-width: 1080px; margin: 0 auto;
+  max-width: 1100px; margin: 0 auto;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
-h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; text-wrap: balance; margin: 0; }
-h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); font-weight: 800; letter-spacing: -0.01em; }
-h2 { font-size: clamp(1.6rem, 3.2vw, 2.2rem); font-weight: 800; }
-h3 { font-size: 1.2rem; font-weight: 600; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.05; text-wrap: balance; margin: 0; letter-spacing: 0.01em; }
+h1 { font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 800; text-transform: uppercase; }
+h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; text-transform: uppercase; }
+h3 { font-size: 1.35rem; font-weight: 700; }
 p { margin: 0; }
 a { color: var(--accent); }
-a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
-.eyebrow { font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+.eyebrow { font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
 
-/* top bar */
 .top { padding-block: 18px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-.brand { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 10px; }
-.brand-mark { width: 34px; height: 34px; border-radius: 9px; background: var(--accent); display: grid; place-items: center; color: var(--accent-ink); font-size: 1.1rem; }
-.top-phone { font-weight: 700; color: var(--ink); }
+.brand { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: var(--ink); text-decoration: none; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+.brand-mark { width: 36px; height: 36px; border-radius: 8px; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-size: 1.2rem; }
+.top-phone { font-weight: 700; }
 .top-phone span { color: var(--muted); font-weight: 400; }
 
-/* hero */
-.hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center; padding-block: 40px 64px; }
+.hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; padding-block: 36px 64px; }
 .hero > * { min-width: 0; }
-.hero p.lede { font-size: 1.2rem; color: var(--muted); margin-top: 18px; max-width: 34ch; }
+.lede { font-size: 1.2rem; color: var(--muted); margin-top: 18px; max-width: 38ch; }
 .cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 28px; }
-.btn {
-  display: inline-flex; align-items: center; gap: 8px; padding: 14px 22px; border-radius: 12px;
-  font: 700 1.05rem var(--font-body); text-decoration: none; border: 2px solid var(--accent); cursor: pointer;
-}
+.btn { display: inline-flex; align-items: center; padding: 14px 22px; border-radius: 10px; font: 700 1.05rem var(--font-body); text-decoration: none; border: 2px solid var(--accent); cursor: pointer; }
 .btn-primary { background: var(--accent); color: var(--accent-ink); }
 .btn-ghost { background: transparent; color: var(--accent); }
-.promises { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 28px; padding: 0; list-style: none; color: var(--ink); font-weight: 700; font-size: 1rem; }
+.promises { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 28px; padding: 0; list-style: none; font-weight: 700; font-size: 1rem; }
 .promises li::before { content: "✓"; color: var(--good); margin-right: 8px; }
 
-/* the consent card: what customers see when the session starts */
-.consent {
-  background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px;
-  box-shadow: 0 18px 40px -24px rgba(18, 48, 45, 0.45); position: relative;
-}
-.consent-bar { display: flex; gap: 6px; margin-bottom: 18px; }
-.consent-bar i { width: 11px; height: 11px; border-radius: 50%; background: var(--line); display: block; }
-.consent h3 { font-size: 1.15rem; }
-.consent .who { color: var(--muted); margin-top: 6px; font-size: 1rem; }
-.code { font-family: var(--font-display); font-weight: 800; font-size: 2rem; letter-spacing: 0.12em; margin: 16px 0 4px; font-variant-numeric: tabular-nums; }
-.code-label { font-size: 0.9rem; color: var(--muted); }
-.consent-actions { display: flex; gap: 10px; margin-top: 18px; }
-.consent-actions span { flex: 1; text-align: center; padding: 11px; border-radius: 10px; font-weight: 700; border: 2px solid var(--line); }
-.consent-actions .allow { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
-.sticky {
-  position: absolute; right: -14px; bottom: -26px; transform: rotate(3deg);
-  background: var(--note); color: var(--note-ink); padding: 12px 16px; border-radius: 6px; max-width: 200px;
-  font-size: 0.95rem; font-weight: 700; box-shadow: 0 8px 18px -10px rgba(0, 0, 0, 0.4);
-}
+/* live video-call card */
+.call { background: var(--slate); color: var(--slate-ink); border-radius: 18px; overflow: hidden; box-shadow: 0 22px 44px -26px rgba(0, 0, 0, 0.6); }
+.call-head { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; font-size: 0.9rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+.live { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.live::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: #ff4d3d; }
+.timer { font-variant-numeric: tabular-nums; opacity: 0.8; }
+.call-body { padding: 18px 16px 20px; display: grid; gap: 14px; }
+.plate { border: 1px dashed rgba(255, 255, 255, 0.35); border-radius: 10px; padding: 10px 12px; font-size: 0.95rem; }
+.plate b { font-family: var(--font-display); font-size: 1.15rem; letter-spacing: 0.04em; }
+.bubble { background: rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 12px 14px; font-size: 1rem; }
+.bubble.you { background: var(--accent); color: var(--accent-ink); justify-self: end; max-width: 88%; }
+.checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 0.95rem; }
+.checks li::before { content: "✓"; margin-right: 8px; color: #7ee2a8; font-weight: 800; }
 
-/* sections */
 section { padding-block: 56px; border-top: 1px solid var(--line); }
-.section-head { display: grid; gap: 10px; margin-bottom: 30px; max-width: 60ch; }
+.section-head { display: grid; gap: 10px; margin-bottom: 30px; max-width: 62ch; }
 .section-head p { color: var(--muted); }
-.services { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-.service { padding: 18px 0; border-top: 3px solid var(--accent); min-width: 0; }
-.service p { color: var(--muted); font-size: 1rem; margin-top: 6px; }
+
+.trades { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.trade { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; min-width: 0; }
+.trade h3 { display: flex; align-items: baseline; gap: 10px; }
+.trade h3 small { font: 700 0.75rem var(--font-body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.trade ul { margin: 10px 0 0; padding-left: 20px; color: var(--muted); font-size: 1rem; }
 
 .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; counter-reset: step; list-style: none; padding: 0; margin: 0; }
 .steps li { counter-increment: step; min-width: 0; }
-.steps li::before {
-  content: counter(step); display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%;
-  background: var(--note); color: var(--note-ink); font: 800 1.2rem var(--font-display); margin-bottom: 12px;
-}
+.steps li::before { content: counter(step); display: grid; place-items: center; width: 44px; height: 44px; border-radius: 8px; background: var(--slate); color: var(--slate-ink); font: 800 1.4rem var(--font-display); margin-bottom: 12px; }
 .steps p { color: var(--muted); font-size: 1rem; margin-top: 6px; }
 
 .prices { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .price { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .price.feature { border: 2px solid var(--accent); }
-.amount { font-family: var(--font-display); font-weight: 800; font-size: 2.2rem; font-variant-numeric: tabular-nums; }
-.amount small { font-size: 1rem; font-weight: 600; color: var(--muted); }
+.amount { font-family: var(--font-display); font-weight: 800; font-size: 2.6rem; line-height: 1; font-variant-numeric: tabular-nums; }
 .price p { color: var(--muted); font-size: 1rem; }
-.tag { align-self: flex-start; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: var(--accent); color: var(--accent-ink); padding: 3px 9px; border-radius: 999px; }
+.tag { align-self: flex-start; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: var(--accent); color: var(--accent-ink); padding: 3px 9px; border-radius: 999px; }
 .fineprint { margin-top: 18px; color: var(--muted); font-size: 0.98rem; }
 
-.safety { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
-.safety > * { min-width: 0; }
-.checklist { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
-.checklist li { padding-left: 34px; position: relative; }
-.checklist li::before { position: absolute; left: 0; top: 0; font-weight: 800; }
-.checklist.do li::before { content: "✓"; color: var(--good); }
-.checklist.dont li::before { content: "✕"; color: var(--warn); }
+.stopbox { border: 2px solid var(--stop); border-radius: var(--radius); padding: 24px; background: var(--surface); display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.stopbox > * { min-width: 0; }
+.stopbox h3 { color: var(--stop); margin-bottom: 12px; }
+.list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.list li { padding-left: 30px; position: relative; }
+.list li::before { position: absolute; left: 0; top: 0; font-weight: 800; }
+.list.stop li::before { content: "✕"; color: var(--stop); }
+.list.ok li::before { content: "✓"; color: var(--good); }
+.emergency { margin-top: 18px; padding: 14px 18px; border-radius: 10px; background: var(--slate); color: var(--slate-ink); font-weight: 700; }
 
-.faq { display: grid; gap: 10px; max-width: 760px; }
+.faq { display: grid; gap: 10px; max-width: 780px; }
 details { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; }
 summary { cursor: pointer; font-weight: 700; }
 details p { margin-top: 10px; color: var(--muted); }
 
 .contact { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .contact-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; min-width: 0; }
-.contact-card .value { font-family: var(--font-display); font-weight: 800; font-size: 1.35rem; margin: 6px 0 12px; overflow-wrap: anywhere; user-select: all; }
+.contact-card .value { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; margin: 6px 0 12px; overflow-wrap: anywhere; user-select: all; }
 .copy { font: 700 0.95rem var(--font-body); background: transparent; color: var(--accent); border: 2px solid var(--accent); padding: 8px 14px; border-radius: 10px; cursor: pointer; }
 .hours { margin-top: 20px; color: var(--muted); }
 
-footer { padding-block: 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.95rem; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+footer { padding-block: 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.92rem; display: grid; gap: 8px; }
 
-@media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; gap: 56px; }
-  .services, .steps, .prices { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 920px) {
+  .hero { grid-template-columns: 1fr; }
+  .trades { grid-template-columns: repeat(2, 1fr); }
+  .steps, .prices { grid-template-columns: repeat(2, 1fr); }
   .contact { grid-template-columns: 1fr; }
-  .sticky { right: 10px; }
 }
-@media (max-width: 560px) {
-  .services, .steps, .prices, .safety { grid-template-columns: 1fr; }
+@media (max-width: 580px) {
+  .trades, .steps, .prices, .stopbox { grid-template-columns: 1fr; }
   .top-phone span { display: none; }
 }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
 
 <div class="wrap">
   <header class="top">
-    <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">✓</span>Patient Tech Help</a>
-    <div class="top-phone">(000) 000-0000 <span>· Mon–Sat, 9 am–8 pm ET</span></div>
+    <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">⚒</span>DIY Fix Line</a>
+    <div class="top-phone">(000) 000-0000 <span>· 7 days, 8 am–9 pm ET</span></div>
   </header>
 
   <main id="top">
     <div class="hero">
       <div>
-        <p class="eyebrow">Computer &amp; phone help, from home</p>
-        <h1 style="margin-top:12px">Stuck with your computer or phone? We fix it over the internet while you watch.</h1>
-        <p class="lede">Friendly, patient help for slow computers, pop-ups, Wi-Fi, printers, email and phones. No driving, no waiting for a technician, no jargon.</p>
+        <p class="eyebrow">HVAC · Plumbing · Electrical · Appliances · Refrigeration</p>
+        <h1 style="margin-top:12px">Fix it yourself, with a tech on video call.</h1>
+        <p class="lede">Show us the furnace, the leak, the breaker or the walk-in freezer on your phone. We walk you through the fix step by step, or tell you honestly when it's time to call a technician.</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href="https://calendly.com/" target="_blank" rel="noopener">Book a session</a>
-          <a class="btn btn-ghost" href="#contact">Call or text us</a>
+          <a class="btn btn-primary" href="#contact">Start a video call</a>
+          <a class="btn btn-ghost" href="#prices">See prices</a>
         </div>
         <ul class="promises">
-          <li>No fix, no fee</li>
-          <li>Flat prices in CAD</li>
-          <li>We never call you first</li>
+          <li>Help in minutes, not days</li>
+          <li>No service-call fee</li>
+          <li>Homes and businesses</li>
         </ul>
       </div>
 
-      <div class="consent" aria-label="Example of the screen-sharing request you'll see">
-        <div class="consent-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-        <h3>Allow Patient Tech Help to see your screen?</h3>
-        <p class="who">You stay in control. Close this window anytime to end the session.</p>
-        <div class="code">482 913</div>
-        <div class="code-label">Your session code (read it to us on the phone)</div>
-        <div class="consent-actions" aria-hidden="true"><span class="allow">Allow</span><span>Deny</span></div>
-        <div class="sticky">This is the only thing you'll need to click.</div>
+      <div class="call" aria-label="Example of a video call with a customer">
+        <div class="call-head"><span class="live">Live video call</span><span class="timer">06:42</span></div>
+        <div class="call-body">
+          <div class="plate">Model plate: <b>Gas furnace, 80,000 BTU</b><br>Problem: blower runs, no heat. Status light flashing.</div>
+          <div class="bubble">Count the flashes on that little light for me, then pull the filter out and hold it up to the camera.</div>
+          <div class="bubble you">3 flashes. And the filter is really grey…</div>
+          <ul class="checks">
+            <li>Power off at the furnace switch first</li>
+            <li>New filter in, arrow pointing to the furnace</li>
+            <li>Heat back on after a restart</li>
+          </ul>
+        </div>
       </div>
     </div>
 
-    <section id="services">
+    <section id="trades">
       <div class="section-head">
-        <p class="eyebrow">What we fix</p>
-        <h2>Everyday tech problems, sorted</h2>
-        <p>Windows, Mac, iPhone, iPad and Android. If it's not on the list, ask us: the first 5 minutes are free.</p>
+        <p class="eyebrow">What we help with</p>
+        <h2>If it heats, cools, drains or plugs in, ask us</h2>
+        <p>Not sure if your problem fits? Call anyway. If we can't help in the first 5 minutes, there's no charge.</p>
       </div>
-      <div class="services">
-        <div class="service"><h3>Slow or frozen computer</h3><p>Clean-up, startup fixes and updates so it runs like it should.</p></div>
-        <div class="service"><h3>Viruses &amp; pop-ups</h3><p>Remove junk, fake warnings and unwanted programs safely.</p></div>
-        <div class="service"><h3>Wi-Fi &amp; printers</h3><p>Get connected, get printing, and stay that way.</p></div>
-        <div class="service"><h3>Email &amp; passwords</h3><p>Set up email, recover accounts, and keep passwords safe.</p></div>
-        <div class="service"><h3>Phones &amp; tablets</h3><p>Photos, contacts, apps, storage full, and moving to a new phone.</p></div>
-        <div class="service"><h3>New computer setup</h3><p>Move your files, photos and programs from the old one.</p></div>
-        <div class="service"><h3>Video calls with family</h3><p>Zoom, FaceTime and WhatsApp set up and practised together.</p></div>
-        <div class="service"><h3>Scam check</h3><p>Not sure about an email, text or call? We'll tell you if it's real.</p></div>
+      <div class="trades">
+        <div class="trade"><h3>Heating <small>Furnaces · boilers</small></h3><ul><li>No heat or short cycling</li><li>Thermostat setup and wiring checks</li><li>Filters, error codes, strange noises</li></ul></div>
+        <div class="trade"><h3>Cooling <small>AC · heat pumps</small></h3><ul><li>Not cooling, freezing up, leaking water</li><li>Condensate drains and float switches</li><li>Outdoor unit checks and cleaning</li></ul></div>
+        <div class="trade"><h3>Plumbing <small>Home · light commercial</small></h3><ul><li>Leaks, running toilets, slow drains</li><li>Shut-off valves and frozen pipes</li><li>Electric water heater problems</li></ul></div>
+        <div class="trade"><h3>Electrical <small>Safe, permitted tasks</small></h3><ul><li>Tripping breakers and GFCI outlets</li><li>Finding what's on which circuit</li><li>Is this safe, or does it need an electrician?</li></ul></div>
+        <div class="trade"><h3>Appliances <small>Laundry · kitchen</small></h3><ul><li>Dryer not heating or taking forever</li><li>Washer won't drain or spin</li><li>Fridge, dishwasher and oven problems</li></ul></div>
+        <div class="trade"><h3>Commercial <small>Restaurants · shops</small></h3><ul><li>Walk-in cooler or freezer warming up</li><li>Ice build-up, door gaskets, fans, alarms</li><li>Is it an emergency, or can it wait until morning?</li></ul></div>
       </div>
     </section>
 
     <section id="how">
       <div class="section-head">
         <p class="eyebrow">How it works</p>
-        <h2>Help in four simple steps</h2>
+        <h2>Four steps to a fix</h2>
       </div>
       <ol class="steps">
-        <li><h3>Get in touch</h3><p>Call, text or book a time online. Tell us what's wrong in your own words.</p></li>
-        <li><h3>Open a secure link</h3><p>We send a free screen-sharing link and you click "Allow". Nothing to buy.</p></li>
-        <li><h3>Watch us fix it</h3><p>You see every step on your screen and can stop us anytime.</p></li>
-        <li><h3>Pay when it's fixed</h3><p>Interac e-Transfer or credit card. No fix, no fee.</p></li>
+        <li><h3>Call or text</h3><p>Tell us what's wrong. Send a photo of the model and serial number sticker if you can.</p></li>
+        <li><h3>Video call</h3><p>FaceTime, WhatsApp or Google Meet: whatever you already use. Point your phone at the problem.</p></li>
+        <li><h3>Fix it together</h3><p>We guide you step by step, safety first, and tell you exactly which part to buy if one is needed.</p></li>
+        <li><h3>Pay after the call</h3><p>Interac e-Transfer or card. If we can't help in the first 5 minutes, it's free.</p></li>
       </ol>
     </section>
 
     <section id="prices">
       <div class="section-head">
         <p class="eyebrow">Prices</p>
-        <h2>Flat prices. You know the cost before we start.</h2>
+        <h2>Less than a service call</h2>
+        <p>A technician visit often costs $100–$150 just to show up. With us you pay for the call, and often fix it the same day.</p>
       </div>
       <div class="prices">
-        <div class="price"><h3>Quick Fix</h3><div class="amount">$39</div><p>Up to 30 minutes. One problem, like a printer or a pop-up.</p></div>
-        <div class="price feature"><span class="tag">Most popular</span><h3>Full Session</h3><div class="amount">$69</div><p>Up to 1 hour. Several problems or a full clean-up.</p></div>
-        <div class="price"><h3>New Computer Setup</h3><div class="amount">$99</div><p>Move your files, photos, email and programs.</p></div>
-        <div class="price"><h3>Peace of Mind</h3><div class="amount">$25<small>/month</small></div><p>Up to 2 sessions a month, priority booking, cancel anytime.</p></div>
+        <div class="price"><h3>Quick Question</h3><div class="amount">$25</div><p>Up to 15 minutes. "Is this normal?" "Which part do I need?"</p></div>
+        <div class="price feature"><span class="tag">Most popular</span><h3>Guided Fix</h3><div class="amount">$49</div><p>Up to 30 minutes on video, walking you through the repair.</p></div>
+        <div class="price"><h3>Full Session</h3><div class="amount">$89</div><p>Up to 1 hour for bigger jobs or several problems.</p></div>
+        <div class="price"><h3>Commercial</h3><div class="amount">$79</div><p>Up to 30 minutes for walk-ins, restaurant and shop equipment.</p></div>
       </div>
-      <p class="fineprint">Prices in Canadian dollars. Seniors (65+) get 10% off. If we can't fix it, you don't pay.</p>
+      <p class="fineprint">Prices in Canadian dollars, plus tax where it applies. Parts are bought by you, from any store you like.</p>
     </section>
 
     <section id="safety">
       <div class="section-head">
-        <p class="eyebrow">Your safety</p>
-        <h2>How to tell real tech help from a scam</h2>
-        <p>Fake "tech support" calls are common. Here is how we work, so you can always tell us apart.</p>
+        <p class="eyebrow">Safety first</p>
+        <h2>When we'll tell you to stop and call a pro</h2>
+        <p>Some jobs are dangerous or, by law, need a licensed technician. We'll always say so, even if it means a shorter call.</p>
       </div>
-      <div class="safety">
+      <div class="stopbox">
         <div>
-          <h3 style="margin-bottom:14px">What we do</h3>
-          <ul class="checklist do">
-            <li>Only help when you contact us first.</li>
-            <li>Tell you the price before we start.</li>
-            <li>Let you watch everything and stop us anytime.</li>
-            <li>Disconnect when we're done, and show you how to check.</li>
+          <h3>Not DIY: we'll send you to a licensed technician</h3>
+          <ul class="list stop">
+            <li>Anything on gas lines, gas valves or burners</li>
+            <li>Adding or handling refrigerant (AC, heat pumps, freezers)</li>
+            <li>Work inside the electrical panel, or new wiring that needs a permit</li>
+            <li>Sparks, burning smells, or melted wires and plugs</li>
           </ul>
         </div>
         <div>
-          <h3 style="margin-bottom:14px">What we never do</h3>
-          <ul class="checklist dont">
-            <li>Call you out of the blue about a "virus".</li>
-            <li>Ask for gift cards, crypto or your bank password.</li>
-            <li>Ask you to log in to your bank while we're connected.</li>
-            <li>Rush you or threaten that your computer will be "locked".</li>
+          <h3 style="color:var(--good)">Good DIY, with us guiding you</h3>
+          <ul class="list ok">
+            <li>Filters, drains, resets and cleaning</li>
+            <li>Finding the problem so you buy the right part</li>
+            <li>Swapping simple parts with the power or water off</li>
+            <li>Deciding if a repair is worth it, or getting a second opinion on a quote</li>
           </ul>
         </div>
       </div>
+      <p class="emergency">Smell gas? Leave the building now, then call your gas utility or 911 from outside. Don't call us first.</p>
     </section>
 
     <section id="faq">
@@ -272,31 +261,31 @@ footer { padding-block: 32px; border-top: 1px solid var(--line); color: var(--mu
         <h2>Good to know</h2>
       </div>
       <div class="faq">
-        <details><summary>Do I need to install anything?</summary><p>Only a free, well-known screen-sharing app that we walk you through on the phone. You can remove it afterwards, and we'll show you how.</p></details>
-        <details><summary>Can you see my files after we're done?</summary><p>No. The connection only works while the window is open and you've clicked "Allow". Once you close it, we can't connect again without a new code from you.</p></details>
-        <details><summary>What if you can't fix it?</summary><p>Then you don't pay. If it's a hardware problem, like a broken screen, we'll tell you honestly and suggest a local repair shop.</p></details>
-        <details><summary>How do I pay?</summary><p>Interac e-Transfer or credit card, after the problem is fixed. We email you a receipt.</p></details>
-        <details><summary>Can you help my parents who live far away?</summary><p>Yes. You can book and pay for them, and we'll call them directly at a time that suits them.</p></details>
+        <details><summary>I'm not handy at all. Can I still do this?</summary><p>Most calls are simple: a reset, a filter, a clogged drain or a tripped breaker. We go one small step at a time, and we'll tell you if a job is beyond a first-timer.</p></details>
+        <details><summary>What do I need for the call?</summary><p>A phone with a camera, and the model sticker of the equipment if you can find it. For some jobs, basic tools like a screwdriver or a flashlight. We tell you before we start.</p></details>
+        <details><summary>Do you help businesses?</summary><p>Yes. Restaurants, stores and landlords call us about walk-in coolers, ice machines, rooftop units and more, often to decide whether it's an emergency before paying for an after-hours visit.</p></details>
+        <details><summary>What if it can't be fixed by video?</summary><p>We tell you what's wrong as best we can, so the technician you call knows what to bring, and you're harder to overcharge.</p></details>
+        <details><summary>How do I pay?</summary><p>After the call, by Interac e-Transfer or card. We email you a receipt.</p></details>
       </div>
     </section>
 
     <section id="contact">
       <div class="section-head">
         <p class="eyebrow">Get help now</p>
-        <h2>Call, text, or book a time</h2>
+        <h2>Call, text or book a video call</h2>
       </div>
       <div class="contact">
         <div class="contact-card"><p class="eyebrow">Phone or text</p><div class="value" id="phone">(000) 000-0000</div><button class="copy" type="button" data-copy="phone">Copy number</button></div>
-        <div class="contact-card"><p class="eyebrow">Email</p><div class="value" id="email">help@example.com</div><button class="copy" type="button" data-copy="email">Copy email</button></div>
-        <div class="contact-card"><p class="eyebrow">Book online</p><div class="value">Pick a time</div><a class="btn btn-primary" href="https://calendly.com/" target="_blank" rel="noopener">Open the calendar</a></div>
+        <div class="contact-card"><p class="eyebrow">Email photos</p><div class="value" id="email">help@example.com</div><button class="copy" type="button" data-copy="email">Copy email</button></div>
+        <div class="contact-card"><p class="eyebrow">Book a time</p><div class="value">Pick a time</div><a class="btn btn-primary" href="https://calendar.google.com/" target="_blank" rel="noopener">Open the calendar</a></div>
       </div>
-      <p class="hours">Monday to Saturday, 9 am to 8 pm Eastern. Serving all of Canada.</p>
+      <p class="hours">7 days a week, 8 am to 9 pm Eastern. Serving all of Canada.</p>
     </section>
   </main>
 
   <footer>
-    <span>© 2026 Patient Tech Help · Remote computer and phone support across Canada</span>
-    <span>We only connect to your device with your permission.</span>
+    <span>© 2026 DIY Fix Line · Video troubleshooting for HVAC, plumbing, electrical, appliances and refrigeration across Canada</span>
+    <span>Advice is given by video and you do the work yourself. Follow local codes and get permits where required. For gas, refrigerant and panel work, use a licensed technician.</span>
   </footer>
 </div>
 
@@ -312,9 +301,8 @@ document.querySelectorAll(".copy").forEach(function (btn) {
       var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
       done("Selected, press Ctrl+C");
     }
-    try {
-      navigator.clipboard.writeText(text).then(function () { done("Copied"); }, selectIt);
-    } catch (e) { selectIt(); }
+    try { navigator.clipboard.writeText(text).then(function () { done("Copied"); }, selectIt); }
+    catch (e) { selectIt(); }
   });
 });
 </script>
